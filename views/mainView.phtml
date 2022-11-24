@@ -21,8 +21,6 @@
 		            if($_SESSION['user']-> getID() === 0){
 			        echo '<li><a href="index.php?login"> Logear/Registrar</a></li>';
 		            }
-	          
-                   
                     if($_SESSION['user'] -> getID() != 0){
                         echo'<li><a href="index.php?rooms">Lista de Salas</a></li>';
                         echo'<li><a href="index.php?sala">Crear Sala</a></li>';

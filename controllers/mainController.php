@@ -7,9 +7,7 @@ require_once('models/messageModel.php');
 require_once('models/messageRepository.php');
 require_once('models/roomModel.php');
 require_once('models/roomRepository.php');
-//sala chat , falso online, lista usuarios
 session_start();
-
 
 
 if(!isset($_SESSION['user'])){
@@ -26,19 +24,20 @@ if(!isset($_SESSION['user'])){
     $_SESSION['user'] = new User($datos);
 }
 
+UserRepository::getAllUsers();
 
 if(isset($_GET['sala'])){
-   
+    UserRepository::calculateStatus($_SESSION['user']->getID());
+    // $time=UserRepository::getTimeAction();
     require_once('controllers/editCreateController.php');
     die();
 }
 if(isset($_GET['room'])){
+    UserRepository::calculateStatus($_SESSION['user']->getID());
     $totalrooms = RoomRepository::getCountRooms();
-   
     if($_GET['room']<=$totalrooms && $_GET['room']>0){
         if(RoomRepository::getRoomById($_GET['room'])->getPrivated()==1){
-
-            echo "<script>alert('Soy una sala privada Onichan')</script>";
+            echo "<script>alert('Soy una sala privada Onichan ✌')</script>";
         }else{
             $roomMessages = MessageRepository::getRoomMessages($_GET['room']);
             $allUsers = UserRepository::getAllUsers();
@@ -54,6 +53,7 @@ if(isset($_GET['room'])){
 }
 
 if(isset($_GET['rooms'])){
+    UserRepository::calculateStatus($_SESSION['user']->getID());
 // Aquí lo mismo, necesitamos comprobar que haya usuario logeado para acceder y que así no nos rompan las bolas
     if($_SESSION['user']->getName() ==""){
         header('Location: index.php');
@@ -66,6 +66,7 @@ if(isset($_GET['rooms'])){
 }
 
 if(isset($_GET['panelAdmin'])) {
+    UserRepository::calculateStatus($_SESSION['user']->getID());
     // Aquí primero comprobamos que sea admin y dentro del admin controller he comprobado si esta logado o no para que no rompan las bolas pasando panelAdmin por url
     if($_SESSION['user']->getRol()!=1){
         header('Location: index.php');
@@ -83,10 +84,8 @@ if(isset($_GET['login'])) {
     require_once('controllers/loginController.php');
     die();
 }
-if(isset($_GET['PRUEBA'])) {
-    require_once('views/chat_app.html');
-    die();
-}
+
+
 // cargar la vista
 require_once("views/mainView.phtml");
 ?>

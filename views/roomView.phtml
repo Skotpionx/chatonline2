@@ -62,7 +62,18 @@
             <div class="chat">
                 <div class="chat-history">
                     <ul class="m-b-0">
+                    <?php 
+                    echo'<li class="clearfix">
+                        <div style="display:flex;flex-direction:column;width:100%;justify-content:center;text-align:center;" class="center"> 
+                            <div class="message-data text-right "  >
+                                <span class="message-data-time">Admin Web</span>
+                                <img src="views/img/minion.png" alt="avatar">
+                            </div>
+                            <div class="message other-message float-right"style="margin:auto">A partir de aquí comienza el chat de esta sala</div>
+                        </div>
 
+                    </li>'
+                    ?>
                         <?php
                             if($roomMessages){
                                 foreach($roomMessages as $message){

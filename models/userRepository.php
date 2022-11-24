@@ -30,6 +30,8 @@
                 $resultQueryGetAllUsers = $db-> query($queryGetAllUsers);
                 while( $resultado =  $resultQueryGetAllUsers->fetch_assoc()){
                     $usuarios[] =  new User($resultado);
+                    UserRepository::calculateStatus($resultado['id']);
+                    // var_dump($usuarios['id']);
                 }
                 return $usuarios;
             }
@@ -101,7 +103,21 @@
     }
     public static function deleteUser($id){
         $db=Conectar::conexion();        
-        $result= $db->query("UPDATE users SET activated='0' WHERE id='".$id."'");         
+        $db->query("UPDATE users SET activated='0' WHERE id='".$id."'");         
     } 
+
+    public static function calculateStatus($iduser){
+        $value = 0;
+        $time = MessageRepository::getSeconds(MessageRepository::getLastTimeMessage($iduser));
+        if($time != null){
+            $timenow = MessageRepository::getTimeNow();
+            if( $timenow-$time <= 300){
+                $value = 1;
+            }
+            UserRepository::changeStatus($value);
+        }
+
+
+    }
 }
 ?>
