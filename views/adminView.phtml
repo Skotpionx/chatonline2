@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin Panel</title>
+	<link rel="stylesheet" href="css/styles.css?v=<?php echo time(); ?>">
+</head>
+<body>
+	
+<?php
+echo'<a href="index.php">Volver a la página principal</a>';
+//Devulve los usuarios que no están hidden de por sí 
+$users = UserRepository::getAllUsers();
+$allRooms = RoomRepository::getAllRooms();
+echo'<div class="container">';
+if($users){
+    echo'<ul class="users">';
+	echo'<h2>Usuarios</h2>';
+	foreach ($users as $user) {
+        if($user->getActivated()==1){
+		echo '<li>'.$user->getName().'';
+        if($user->getRol() == 0){
+            echo '<a href="index.php?panelAdmin='.$user->getId().'">	Hacer Admin</a>';
+        }else{
+			echo '<a href="index.php?panelAdmin='.$user->getId().'">	Quitar Admin</a>';
+		}
+		echo'<a href="index.php?panelAdmin&deleteUser='.$user->getId().'">Eliminar usuario</a></li>';
+	    }
+    }
+    echo '</ul>';
+
+}else{
+	echo'No hay usuarios';
+}
+
+
+
+if($allRooms){
+    echo'<ul class="articles">';
+	echo'<h2>Salas</h2>';
+	foreach ($allRooms as $room) {
+        // Tenemos que poner name a las salas para tener un identificador distinto al id 
+		if($room->privated == 0){ 
+            echo '<li><p>'.$room->name.'<a href="index.php?sala&id='.$room->id.'">	Editar</a>    <a href="index.php?panelAdmin&delete&id='.$room->id.'"> Privada </a></p></li>';
+        }else{
+			echo '<li><p>'.$room->name.'<a href="index.php?sala&id='.$room->id.'">	Editar</a>    <a href="index.php?panelAdmin&delete&id='.$room->getId().'"> No privada </a></p></li>';
+		}
+	}
+    echo'</ul>';
+}else{
+	echo'No hay salas';
+}
+echo'</div>';
+?>
+</body>
+</html>

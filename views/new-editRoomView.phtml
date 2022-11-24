@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejo de Salas</title>
+    <link rel="stylesheet" href="css/form.css?v=<?php echo time(); ?>">
+</head>
+<body>
+    <?php
+    if(isset($_GET['id'])){
+        echo'<a href="index.php?panelAdmin">Volver al panel administrativo</a>';
+        echo'<h2>Editar Sala</h2>';
+        $sala = RoomRepository::getRoomById($_GET['id']);
+        echo '<form action="index.php?sala&id='.$_GET['id'].'" method="post">
+        <input type="text" name="name" value="'.$sala->getName().'"placeholder="Nombre" required/>
+        <input type="hidden" name="privated" value="'.$sala->getPrivated().'">
+        <input type="submit" name="editroom" value="Editar"/>
+    </form>';
+    }else{
+        echo'<a href="index.php">Volver a la página principal</a>';
+        echo'<h2>Crear Sala</h2>';
+        echo '<form action="index.php?sala" method="post">
+        <input type="text" name="name" placeholder="Nombre" required/>
+        <input type="submit" name="newroom" value="Crear Sala"/>
+    </form>';
+    }
+    ?>
+ 
+</body>
+</html>

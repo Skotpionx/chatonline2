@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de salas</title>
+    <link rel="stylesheet" href="css/styles.css?v=<?php echo time(); ?>">
+</head>
+<body>
+    <?php
+    echo'<a href="index.php">Volver a la página principal</a>';
+    echo '<h3>Salas disponibles</h3>'; 
+    echo'<div class="container">';  
+            
+    if (count($allrooms) == 0) {
+         echo 'No hay salas';
+    } else {
+        echo'<ul class="users">';
+        foreach ($allrooms as $sala) {
+            if($sala->privated==0){
+                echo '<li><a href="index.php?room='.$sala->getId().'">Sala'.$sala->getName().'</a></li>';
+            }
+            
+        }
+        
+        echo '</ul>';                
+    }
+    echo '</div>';
+?>
+</body>
+</html>
+
+
+

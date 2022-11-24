@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login del blog</title>
+    <link rel="stylesheet" href="css/form.css?v=<?php echo time(); ?>">
+</head>
+<body>
+<h2>Logeo</h2>
+<a href="index.php">Volver a la página principal</a>
+    <form action="index.php?login" method="post">
+        <input type="text" name="user" placeholder="Usuario" required/>
+        <input type="password" name="password" placeholder="Contraseña"required/>
+        <input type="submit" name="logeo" value="Log In"/>
+    </form>
+
+    <h2>Registro</h2>
+    <form action="index.php?login" method="post" enctype="multipart/form-data">
+        <input type="text" name="user" placeholder="Usuario"required/>
+        <input type="password" name="password" placeholder="Contraseña"required/>
+        <input type="password" name="password2" placeholder="Repite la contraseña"required/>
+        <input type="text" name="email" placeholder="Email" required/>
+        <input type="date" name="birthday" placeholder="Fecha Nacimiento" required/>
+        <input type="file" name="img"/>
+        <input type="submit" name="registro" value="Registrate"/>
+    </form>
+</body>
+</html>

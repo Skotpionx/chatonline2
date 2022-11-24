@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog</title>
+    <link rel="stylesheet" href="css/main.css?v=<?php echo time(); ?>">
+</head>
+
+<body>
+	<h1>CHAT JUANMI - IVÁN</h1>
+    <?php
+        if($_SESSION['user']->getName() != "") echo'<h3>Bienvendo a tu chat online '.$_SESSION['user']->getName().'</h3>';
+    ?>
+    <div id='menu'>
+        <nav>
+            <ul>
+                <!-- <li> -->
+                    <!-- <a href="index.php">Inicio</a>  No sirve de nada recargar esta página ya que solo es un menú para seleccionar lo que queramos hacer-->
+                <!-- </li> -->
+                
+                <?php
+		            if($_SESSION['user']-> getID() === 0){
+			        echo '<li><a href="index.php?login"> Logear/Registrar</a></li>';
+		            }
+	          
+                   
+                    if($_SESSION['user'] -> getID() != 0){
+                        echo'<li><a href="index.php?rooms">Lista de Salas</a></li>';
+                        echo'<li><a href="index.php?sala">Crear Sala</a></li>';
+                        if($_SESSION['user'] ->getRol() !=0 ){
+                            echo '<li><a href="index.php?panelAdmin">Admin Mode</a></li>';	
+                        }
+                        echo '<li><a href="index.php?login&logout">Salir</a></li>';
+                    }
+                    ?>
+            </ul>
+        </nav>
+</body>
+</html>
